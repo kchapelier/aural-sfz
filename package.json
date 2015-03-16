@@ -1,0 +1,30 @@
+{
+  "name": "aural-sfz",
+  "version": "0.0.0",
+  "description": "A codec for SFZ soundfont files.",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "check": "gulp lint; gulp codestyle; exit 0",
+    "test": "gulp test"
+  },
+  "homepage": "https://github.com/kchapelier/aural-sfz",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kchapelier/aural-sfz.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kchapelier/aural-sfz/issues"
+  },
+  "author": "Kevin Chapelier",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "gulp": "^3.8.0",
+    "gulp-jscs": "^1.3.0",
+    "gulp-jshint": "^1.9.0",
+    "gulp-mocha": "^2.0.0",
+    "jshint-stylish": "^1.0.0"
+  },
+  "dependencies": {}
+}
