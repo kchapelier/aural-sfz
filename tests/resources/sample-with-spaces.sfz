@@ -1,0 +1,3 @@
+<region>sample=/files/My new sample1.wav
+pitch_keycenter=20
+<region>sample=/files/My new sample2.wav pitch_keycenter=21

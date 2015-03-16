@@ -1,3 +1,3 @@
 "use strict";
 
-module.exports = require('./sfz');
+module.exports = require('./src/sfz');
