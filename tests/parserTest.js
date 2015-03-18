@@ -5,7 +5,7 @@ var SfzSoundfont = require('./../'),
 describe('Parsing the SFZ soundfont format', function () {
     it('should retrieve the region properties', function () {
         var data = fs.readFileSync('./tests/resources/simple.sfz', 'utf-8'),
-            soundfont = SfzSoundfont.loadFromString(data);
+            soundfont = SfzSoundfont.parse(data);
 
         soundfont.regions.length.should.equal(2);
 
@@ -66,7 +66,7 @@ describe('Parsing the SFZ soundfont format', function () {
 
     it('should be able to parse sample name with spaces', function() {
         var data = fs.readFileSync('./tests/resources/sample-with-spaces.sfz', 'utf-8'),
-            soundfont = SfzSoundfont.loadFromString(data);
+            soundfont = SfzSoundfont.parse(data);
 
         soundfont.regions.length.should.equal(2);
 
@@ -76,7 +76,7 @@ describe('Parsing the SFZ soundfont format', function () {
 
     it('should be able to parse a faulty string', function () {
         var data = fs.readFileSync('./tests/resources/faulty.sfz', 'utf-8'),
-            soundfont = SfzSoundfont.loadFromString(data);
+            soundfont = SfzSoundfont.parse(data);
 
         soundfont.regions.length.should.equal(1);
         soundfont.regions[0].sample.should.equal('thing a magick');
