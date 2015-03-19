@@ -1,0 +1,6 @@
+
+//some file
+<region>sample=SOUND_1.WAV pitch_keycenter=49
+<region>pitch_keycenter=50
+<group>sample=SOUND_1.WAV
+<region>pitch_keycenter=51

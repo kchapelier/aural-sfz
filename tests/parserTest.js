@@ -24,47 +24,30 @@ describe('Parsing the SFZ soundfont format', function () {
         soundfont.regions[1].hiVelocity.should.equal(127);
     });
 
-    /*
+    it('should be able to parse regions in groups', function () {
+        var data = fs.readFileSync('./tests/resources/with-groups.sfz', 'utf-8'),
+            soundfont = SfzSoundfont.parse(data);
 
-    test('parse groups', function() {
-        var sfz = '\r\n//some file\r\n' +
-            '<region>sample=SOUND_1.wav\r\n' +
-            '<group>pitch_keycenter=50\r\n' +
-            '<region>sample=SOUND_2.wav\r\n' +
-            '<region>sample=SOUND_2.wav\r\n' +
-            '<group>pitch_keycenter=51\r\n' +
-            '<region>sample=SOUND_2.wav\r\n' +
-            '<region>sample=SOUND_2.wav pitch_keycenter=52';
+        soundfont.regions.length.should.equal(5);
 
-        var sfzFile = Aural.Utils.Sfz.File.loadFromString(sfz);
-
-        equal(sfzFile.regions.length, 5, 'there should be 5 regions loaded');
-
-        equal(sfzFile.regions[0].pitchKeyCenter, 60);
-        equal(sfzFile.regions[1].pitchKeyCenter, 50);
-        equal(sfzFile.regions[2].pitchKeyCenter, 50);
-        equal(sfzFile.regions[3].pitchKeyCenter, 51);
-        equal(sfzFile.regions[4].pitchKeyCenter, 52);
+        //soundfont.regions[0].pitchKeyCenter.should.equal(60);
+        //soundfont.regions[1].pitchKeyCenter.should.equal(50);
+        //soundfont.regions[2].pitchKeyCenter.should.equal(50);
+        //soundfont.regions[3].pitchKeyCenter.should.equal(51);
+        //soundfont.regions[4].pitchKeyCenter.should.equal(52);
     });
 
-    test('parse ignore region without sample', function() {
-        var sfz = '\r\n//some file\r\n' +
-            '<region>sample=SOUND_1.WAV pitch_keycenter=49\r\n' +
-            '<region>pitch_keycenter=50\r\n' +
-            '<group>sample=SOUND_1.WAV\r\n' +
-            '<region>pitch_keycenter=51\r\n';
+    it('should ignore region without sample', function () {
+        var data = fs.readFileSync('./tests/resources/with-a-region-without-sample.sfz', 'utf-8'),
+            soundfont = SfzSoundfont.parse(data);
 
-        var sfzFile = Aural.Utils.Sfz.File.loadFromString(sfz);
+        soundfont.regions.length.should.equal(2);
 
-        equal(sfzFile.regions.length, 2, 'there should be 2 regions loaded');
-
-        equal(sfzFile.regions[0].pitchKeyCenter, 49);
-        equal(sfzFile.regions[1].pitchKeyCenter, 51);
+        //soundfont.regions[0].pitchKeyCenter.should.equal(49);
+        //soundfont.regions[1].pitchKeyCenter.should.equal(51);
     });
 
-    */
-
-    it('should be able to parse sample name with spaces', function() {
+    it('should be able to parse sample name with spaces', function () {
         var data = fs.readFileSync('./tests/resources/sample-with-spaces.sfz', 'utf-8'),
             soundfont = SfzSoundfont.parse(data);
 

@@ -3,7 +3,7 @@
 var util = require('./lib/util'),
     fourGiga = 4294967296;
 
-var SfzRegion = function() {
+var SfzRegion = function () {
     this.innerSequence = 0;
 };
 
@@ -43,9 +43,11 @@ SfzRegion.prototype.switchPrevious = null;
  * Set several properties of the region
  * @param {Object} properties - Object containing the options
  */
-SfzRegion.prototype.setProperties = function(properties) {
-    for(var key in properties) {
-        if(properties.hasOwnProperty(key)) {
+SfzRegion.prototype.setProperties = function (properties) {
+    var key;
+
+    for (key in properties) {
+        if (properties.hasOwnProperty(key)) {
             this.setProperty(key, properties[key]);
         }
     }
@@ -56,14 +58,17 @@ SfzRegion.prototype.setProperties = function(properties) {
  * @param {string} property - Property name (as per sfz specifications)
  * @param {*} value - Value
  */
-SfzRegion.prototype.setProperty = function(property, value) {
-    switch(property) {
+SfzRegion.prototype.setProperty = function (property, value) {
+    switch (property) {
         case 'sample':
-            this.sample = value; break;
+            this.sample = value;
+            break;
         case 'lochan':
-            this.loChannel = util.clampInteger(value, 0, 16); break;
+            this.loChannel = util.clampInteger(value, 0, 16);
+            break;
         case 'hichan':
-            this.hiChannel = util.clampInteger(value, 0, 16); break;
+            this.hiChannel = util.clampInteger(value, 0, 16);
+            break;
         case 'key':
             this.setProperty('lokey', value);
             this.setProperty('hikey', value);
@@ -78,44 +83,61 @@ SfzRegion.prototype.setProperty = function(property, value) {
          this.hiKey = Math.min(127, Math.max(0, value)); break;
          */
         case 'lovel':
-            this.loVelocity = util.clampInteger(value, 0, 127); break;
+            this.loVelocity = util.clampInteger(value, 0, 127);
+            break;
         case 'hivel':
-            this.hiVelocity = util.clampInteger(value, 0, 127); break;
+            this.hiVelocity = util.clampInteger(value, 0, 127);
+            break;
         case 'lorand':
-            this.loRand = util.clampFloat(value, 0, 1); break;
+            this.loRand = util.clampFloat(value, 0, 1);
+            break;
         case 'hirand':
-            this.hiRand = util.clampFloat(value, 0, 1); break;
+            this.hiRand = util.clampFloat(value, 0, 1);
+            break;
         case 'lobpm':
-            this.loBpm = util.clampFloat(value, 0, 500); break;
+            this.loBpm = util.clampFloat(value, 0, 500);
+            break;
         case 'hibpm':
-            this.hiBpm = util.clampFloat(value, 0, 500); break;
+            this.hiBpm = util.clampFloat(value, 0, 500);
+            break;
         case 'seq_length':
-            this.sequenceLength = util.clampInteger(value, 0, 100); break;
+            this.sequenceLength = util.clampInteger(value, 0, 100);
+            break;
         case 'seq_position':
-            this.sequencePosition = util.clampInteger(value, 0, 100); break;
+            this.sequencePosition = util.clampInteger(value, 0, 100);
+            break;
         case 'volume':
-            this.volume = util.clampFloat(value, -144, 6); break;
+            this.volume = util.clampFloat(value, -144, 6);
+            break;
         case 'pan':
-            this.pan = util.clampFloat(value, -100, 100); break;
+            this.pan = util.clampFloat(value, -100, 100);
+            break;
         case 'offset':
-            this.offset = util.clampInteger(value, 0, fourGiga); break;
+            this.offset = util.clampInteger(value, 0, fourGiga);
+            break;
         case 'offset_random':
-            this.offsetRandom = util.clampInteger(value, 0, fourGiga); break;
+            this.offsetRandom = util.clampInteger(value, 0, fourGiga);
+            break;
         case 'end':
-            this.end = util.clampInteger(value, -1, fourGiga); break;
+            this.end = util.clampInteger(value, -1, fourGiga);
+            break;
         case 'transpose':
-            this.transpose = util.clampInteger(value, -127, 127); break;
+            this.transpose = util.clampInteger(value, -127, 127);
+            break;
         case 'tune':
-            this.tune = util.clampInteger(value, 1, 100); break;
+            this.tune = util.clampInteger(value, 1, 100);
+            break;
         /*
          case 'pitch_keycenter':
          value = (typeof value === 'string' && !/^[0-9]+$/.test(value) ? Aural.Music.Note.getMidiFromLabel(value): parseInt(value, 10));
          this.pitchKeyCenter = Math.min(127, Math.max(0, value)); break;
          */
         case 'pitch_keytrack':
-            this.pitchKeyTrack = util.clampInteger(value, -1200, 1200); break;
+            this.pitchKeyTrack = util.clampInteger(value, -1200, 1200);
+            break;
         case 'pitch_random':
-            this.pitchRandom = util.clampInteger(value, 0, 9600); break;
+            this.pitchRandom = util.clampInteger(value, 0, 9600);
+            break;
         /*
          case 'sw_last':
          value = (typeof value === 'string' && !/^[0-9]+$/.test(value) ? Aural.Music.Note.getMidiFromLabel(value): parseInt(value, 10));
@@ -151,19 +173,19 @@ SfzRegion.prototype.setProperty = function(property, value) {
  * @param {Number} rand - Random value for round robin
  * @return {boolean} Return whether the region must be triggered
  */
-SfzRegion.prototype.matchNote = function(channel, key, cents, velocity, bpm, rand) {
+SfzRegion.prototype.matchNote = function (channel, key, cents, velocity, bpm, rand) {
     this.innerSequence++;
 
-    if(this.innerSequence > this.sequenceLength) {
+    if (this.innerSequence > this.sequenceLength) {
         this.innerSequence = 1;
     }
 
     return (
-        channel >= this.loChannel && channel <= this.hiChannel && //channel check
-        key >= this.loKey && key <= this.hiKey && //midi value check
-        velocity >= this.loVelocity && velocity <= this.hiVelocity && //velocity layer
-        this.innerSequence === this.sequencePosition && rand >= this.loRand && rand <= this.hiRand && //round robin
-        bpm >= this.loBpm && bpm <= this.hiBpm
+    channel >= this.loChannel && channel <= this.hiChannel && //channel check
+    key >= this.loKey && key <= this.hiKey && //midi value check
+    velocity >= this.loVelocity && velocity <= this.hiVelocity && //velocity layer
+    this.innerSequence === this.sequencePosition && rand >= this.loRand && rand <= this.hiRand && //round robin
+    bpm >= this.loBpm && bpm <= this.hiBpm
     );
 };
 
