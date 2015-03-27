@@ -3,7 +3,7 @@
 var SfzElement = require('./sfz-element');
 
 var SfzRegion = function () {
-    SfzElement.call(this);
+    SfzElement.call(this, 'region');
     this.innerSequence = 0;
 };
 

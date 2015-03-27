@@ -3,7 +3,11 @@
 var util = require('./lib/util'),
     fourGiga = 4294967296;
 
-var SfzElement = function () {};
+var SfzElement = function (elementLabel) {
+    this.elementLabel = elementLabel;
+};
+
+SfzElement.prototype.elementLabel = null;
 
 SfzElement.prototype.sample = null;
 SfzElement.prototype.volume = 0;
@@ -158,6 +162,24 @@ SfzElement.prototype.setProperty = function (property, value) {
         default:
             break;
     }
+};
+
+SfzElement.prototype.toString = function () {
+    var definition = '<' + this.elementLabel + '>';
+
+    if (this.sample) {
+        definition += '\r\n' + 'sample=' + this.sample;
+    }
+
+    if (this.volume) {
+        definition += '\r\n' + 'volume=' + this.volume;
+    }
+
+    if (this.pan) {
+        definition += '\r\n' + 'pan=' + this.pan;
+    }
+
+    return definition;
 };
 
 module.exports = SfzElement;
