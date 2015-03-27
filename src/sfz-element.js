@@ -5,9 +5,11 @@ var util = require('./lib/util'),
 
 var SfzElement = function (elementLabel) {
     this.elementLabel = elementLabel;
+    this.children = [];
 };
 
 SfzElement.prototype.elementLabel = null;
+SfzElement.prototype.children = null;
 
 SfzElement.prototype.sample = null;
 SfzElement.prototype.volume = 0;
@@ -129,10 +131,10 @@ SfzElement.prototype.setProperty = function (property, value) {
             this.tune = util.clampInteger(value, 1, 100);
             break;
         /*
-         case 'pitch_keycenter':
-         value = (typeof value === 'string' && !/^[0-9]+$/.test(value) ? Aural.Music.Note.getMidiFromLabel(value): parseInt(value, 10));
-         this.pitchKeyCenter = Math.min(127, Math.max(0, value)); break;
-         */
+        case 'pitch_keycenter':
+            value = (typeof value === 'string' && !/^[0-9]+$/.test(value) ? Aural.Music.Note.getMidiFromLabel(value): parseInt(value, 10));
+            this.pitchKeyCenter = Math.min(127, Math.max(0, value)); break;
+        */
         case 'pitch_keytrack':
             this.pitchKeyTrack = util.clampInteger(value, -1200, 1200);
             break;
@@ -165,7 +167,7 @@ SfzElement.prototype.setProperty = function (property, value) {
 };
 
 SfzElement.prototype.toString = function () {
-    var definition = '<' + this.elementLabel + '>';
+    var definition = '\r\n\r\n<' + this.elementLabel + '>';
 
     if (this.sample) {
         definition += '\r\n' + 'sample=' + this.sample;
@@ -177,6 +179,10 @@ SfzElement.prototype.toString = function () {
 
     if (this.pan) {
         definition += '\r\n' + 'pan=' + this.pan;
+    }
+
+    for(var i = 0; i < this.children.length; i++) {
+        definition += this.children[i].toString();
     }
 
     return definition;

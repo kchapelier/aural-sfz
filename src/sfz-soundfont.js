@@ -1,6 +1,7 @@
 "use strict";
 
-var SfzRegion = require('./sfz-region');
+var SfzRegion = require('./sfz-region'),
+    SfzGroup = require('./sfz-group');
 
 var SfzSoundfont = function () {
     this.groups = [];
@@ -16,6 +17,7 @@ SfzSoundfont.prototype.regions = null;
  * @param {Object} regionOptions - Own options of the region
  * @return {SfzRegion} Region instance
  */
+/*
 SfzSoundfont.prototype.addRegion = function (groupOptions, regionOptions) {
     var region = null;
 
@@ -29,6 +31,18 @@ SfzSoundfont.prototype.addRegion = function (groupOptions, regionOptions) {
 
     return region;
 };
+*/
+
+SfzSoundfont.prototype.addGroup = function (group) {
+    this.groups.push(group);
+    return this;
+};
+
+SfzSoundfont.prototype.addRegion = function (region) {
+    this.regions.push(region);
+    return this;
+};
+
 
 SfzSoundfont.prototype.toString = function () {
     var definition = '',
@@ -36,6 +50,10 @@ SfzSoundfont.prototype.toString = function () {
 
     for(i = 0; i < this.regions.length; i++) {
         definition += '\r\n' + this.regions[i].toString();
+    }
+
+    for(i = 0; i < this.groups.length; i++) {
+        definition += '\r\n' + this.groups[i].toString();
     }
 
     return definition;
@@ -49,11 +67,12 @@ SfzSoundfont.prototype.toString = function () {
 SfzSoundfont.parse = function (string) {
     var soundfont = new SfzSoundfont(),
         definitions = string.split(/(<group>|<region>)/i),
-        groupOptions = {},
-        regionOptions = {},
         inGroup = false,
         inRegion = false,
         i;
+
+    var currentGroup = null,
+        currentRegion = null;
 
     for (i = 0; i < definitions.length; i++) {
         var definition = definitions[i];
@@ -61,14 +80,12 @@ SfzSoundfont.parse = function (string) {
         if (definition === '<group>') {
             inGroup = true;
             inRegion = false;
-            groupOptions = {};
             continue;
         }
 
         if (definition === '<region>') {
             inGroup = false;
             inRegion = true;
-            regionOptions = {};
             continue;
         }
 
@@ -88,14 +105,23 @@ SfzSoundfont.parse = function (string) {
             }
 
             if (inGroup) {
-                groupOptions = options;
-            } else {
-                regionOptions = options;
-            }
-        }
+                console.log('group', JSON.stringify(options));
 
-        if (inRegion) {
-            soundfont.addRegion(groupOptions, regionOptions);
+                currentGroup = new SfzGroup();
+                currentGroup.setProperties(options);
+                soundfont.addGroup(currentGroup);
+            } else {
+                console.log('region', JSON.stringify(options));
+
+                currentRegion = new SfzRegion();
+                currentRegion.setProperties(options);
+
+                if (currentGroup) {
+                    currentGroup.addRegion(currentRegion);
+                } else {
+                    soundfont.addRegion(currentRegion);
+                }
+            }
         }
     }
 
