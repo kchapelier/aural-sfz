@@ -11,28 +11,6 @@ var SfzSoundfont = function () {
 SfzSoundfont.prototype.groups = null;
 SfzSoundfont.prototype.regions = null;
 
-/**
- * Add a region to the file based on its groups options and its own
- * @param {Object} groupOptions - Group options of the region
- * @param {Object} regionOptions - Own options of the region
- * @return {SfzRegion} Region instance
- */
-/*
-SfzSoundfont.prototype.addRegion = function (groupOptions, regionOptions) {
-    var region = null;
-
-    //ignore regions without sample as defined by the specifications
-    if (groupOptions.sample || regionOptions.sample) {
-        region = new SfzRegion();
-        region.setProperties(groupOptions);
-        region.setProperties(regionOptions);
-        this.regions.push(region);
-    }
-
-    return region;
-};
-*/
-
 SfzSoundfont.prototype.addGroup = function (group) {
     this.groups.push(group);
     return this;
@@ -43,24 +21,44 @@ SfzSoundfont.prototype.addRegion = function (region) {
     return this;
 };
 
-
 SfzSoundfont.prototype.toString = function () {
     var definition = '',
         i;
 
-    for(i = 0; i < this.regions.length; i++) {
+    for (i = 0; i < this.regions.length; i++) {
         definition += '\r\n' + this.regions[i].toString();
     }
 
-    for(i = 0; i < this.groups.length; i++) {
+    for (i = 0; i < this.groups.length; i++) {
         definition += '\r\n' + this.groups[i].toString();
     }
 
     return definition;
 };
 
+var regexOption = /([a-zA-Z-_]*)=([^=]*)(?![a-zA-Z-_]*=)/g;
+
+var parseDefinition = function parseDefinition (definition) {
+    var lines = definition.split(/[\r\n]/),
+        options = {},
+        i,
+        line,
+        option;
+
+    for (i = 0; i < lines.length; i++) {
+        option = null;
+        line = lines[i].split('//')[0];
+
+        while ((option = regexOption.exec(line)) !== null) {
+            options[option[1]] = option[2].trim();
+        }
+    }
+
+    return options;
+};
+
 /**
- * Load a Sfz.File instance from a string
+ * Load a SfzSoundfont instance from a string
  * @param  {string} string - String to parse
  * @return {SfzSoundfont} File instance
  */
@@ -81,28 +79,14 @@ SfzSoundfont.parse = function (string) {
             inGroup = true;
             inRegion = false;
             continue;
-        }
-
-        if (definition === '<region>') {
+        } else if (definition === '<region>') {
             inGroup = false;
             inRegion = true;
             continue;
         }
 
         if (inGroup || inRegion) {
-            var lines = definition.split(/[\r\n]/);
-            var options = {};
-            for (var i2 = 0; i2 < lines.length; i2++) {
-                var line = lines[i2];
-                line = line.split('//')[0];
-
-                var option = null;
-                var regex = /([a-zA-Z-_]*)=([^=]*)(?![a-zA-Z-_]*=)/g;
-
-                while ((option = regex.exec(line)) !== null) {
-                    options[option[1].trim()] = option[2].trim();
-                }
-            }
+            var options = parseDefinition(definition);
 
             if (inGroup) {
                 console.log('group', JSON.stringify(options));

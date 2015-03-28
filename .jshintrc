@@ -14,10 +14,10 @@
   "strict": true,
   "nonbsp": true,
   "freeze": true,
-  "maxparams": 5,
-  "maxdepth": 5,
+  "maxparams": 6,
+  "maxdepth": 4,
   "maxcomplexity": 8,
-  "maxstatements": 50,
+  "maxstatements": 40,
   "globals": {
     "WebFont": false
   }

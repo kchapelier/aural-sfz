@@ -181,7 +181,7 @@ SfzElement.prototype.toString = function () {
         definition += '\r\n' + 'pan=' + this.pan;
     }
 
-    for(var i = 0; i < this.children.length; i++) {
+    for (var i = 0; i < this.children.length; i++) {
         definition += this.children[i].toString();
     }
 

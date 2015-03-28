@@ -1,7 +1,6 @@
 "use strict";
 
-var SfzElement = require('./sfz-element'),
-    SfzRegion = require('./sfz-region');
+var SfzElement = require('./sfz-element');
 
 var SfzGroup = function () {
     SfzElement.call(this, 'group');

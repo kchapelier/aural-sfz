@@ -3,6 +3,7 @@ var SfzSoundfont = require('./../'),
     fs = require('fs');
 
 describe('Parsing the SFZ soundfont format', function () {
+    /*
     it('should retrieve the region properties', function () {
         var data = fs.readFileSync('./tests/resources/simple.sfz', 'utf-8'),
             soundfont = SfzSoundfont.parse(data);
@@ -23,6 +24,7 @@ describe('Parsing the SFZ soundfont format', function () {
         soundfont.regions[1].loVelocity.should.equal(0);
         soundfont.regions[1].hiVelocity.should.equal(127);
     });
+    */
 
     it('should be able to parse regions in groups', function () {
         var data = fs.readFileSync('./tests/resources/with-groups.sfz', 'utf-8'),
@@ -36,6 +38,8 @@ describe('Parsing the SFZ soundfont format', function () {
         //soundfont.regions[3].pitchKeyCenter.should.equal(51);
         //soundfont.regions[4].pitchKeyCenter.should.equal(52);
     });
+
+    /*
 
     it('should ignore region without sample', function () {
         var data = fs.readFileSync('./tests/resources/with-a-region-without-sample.sfz', 'utf-8'),
@@ -64,4 +68,5 @@ describe('Parsing the SFZ soundfont format', function () {
         soundfont.regions.length.should.equal(1);
         soundfont.regions[0].sample.should.equal('thing a magick');
     });
+    */
 });
