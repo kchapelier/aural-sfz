@@ -6,6 +6,7 @@ var SfzRegion = require('./sfz-region'),
 var SfzSoundfont = function () {
     this.groups = [];
     this.regions = [];
+    this.compiledRegions = [];
 };
 
 SfzSoundfont.prototype.groups = null;
@@ -29,9 +30,9 @@ SfzSoundfont.prototype.compileRegions = function () {
 
     for (i = 0; i < this.regions.length; i++) {
         compiledRegion = new SfzRegion();
-        compiledRegion.setProperties(this.regions[i]);
+        compiledRegion.setProperties(this.regions[i].properties);
 
-        if (compiledRegion.sample) {
+        if (compiledRegion.properties.sample) {
             compiledRegions.push(compiledRegion);
         }
     }
@@ -41,28 +42,28 @@ SfzSoundfont.prototype.compileRegions = function () {
 
         for (k = 0; k < group.children.length; k++) {
             compiledRegion = new SfzRegion();
-            compiledRegion.setProperties(group);
-            compiledRegion.setProperties(group.children[k]);
+            compiledRegion.setProperties(group.properties);
+            compiledRegion.setProperties(group.children[k].properties);
 
-            if (compiledRegion.sample) {
+            if (compiledRegion.properties.sample) {
                 compiledRegions.push(compiledRegion);
             }
         }
     }
 
     this.compiledRegions = compiledRegions;
-}
+};
 
 SfzSoundfont.prototype.toString = function () {
     var definition = '',
         i;
 
     for (i = 0; i < this.regions.length; i++) {
-        definition += '\r\n' + this.regions[i].toString();
+        definition += this.regions[i].toString();
     }
 
     for (i = 0; i < this.groups.length; i++) {
-        definition += '\r\n' + this.groups[i].toString();
+        definition += this.groups[i].toString();
     }
 
     return definition;

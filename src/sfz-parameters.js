@@ -1,5 +1,8 @@
 "use strict";
 
+/* jshint camelcase:false */
+/* jscs:disable requireCamelCaseOrUpperCaseIdentifiers */
+
 var fourGiga = 4294967296;
 
 /*

@@ -5,6 +5,7 @@ sample=SOUND_1.wav
 pitch_keycenter=74
 lokey=72 hikey=76
 lovel=0 hivel=127
+pitch_random=20
 <region>sample=SOUND_2.wav
 pitch_keycenter=C5
 lokey=77 hikey=81 //sample=machi
