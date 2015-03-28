@@ -20,7 +20,7 @@ SfzRegion.prototype.innerSequence = 0;
  * @param {Number} rand - Random value for round robin
  * @return {boolean} Return whether the region must be triggered
  */
-SfzRegion.prototype.matchNote = function (channel, key, cents, velocity, bpm, rand) {
+SfzRegion.prototype.matchInput = function (channel, key, cents, velocity, bpm, rand) {
     this.innerSequence++;
 
     if (this.innerSequence > this.sequenceLength) {
