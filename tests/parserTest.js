@@ -21,7 +21,7 @@ describe('Parsing the SFZ soundfont format', function () {
 
         soundfont.compiledRegions[1].properties.sample.should.equal('SOUND_2.wav');
         //soundfont.compiledRegions[1].properties.pitch_keycenter.should.equal(72);
-        soundfont.compiledRegions[1].properties.lokey.should.equal(77);
+        soundfont.compiledRegions[1].properties.lokey.should.equal(78);
         soundfont.compiledRegions[1].properties.hikey.should.equal(81);
         soundfont.compiledRegions[1].properties.lovel.should.equal(0);
         soundfont.compiledRegions[1].properties.hivel.should.equal(127);
@@ -34,11 +34,11 @@ describe('Parsing the SFZ soundfont format', function () {
 
         soundfont.compiledRegions.length.should.equal(5);
 
-        //soundfont.compiledRegions[0].properties.pitch_keycenter.should.equal(60);
-        //soundfont.compiledRegions[1].properties.pitch_keycenter.should.equal(50);
-        //soundfont.compiledRegions[2].properties.pitch_keycenter.should.equal(50);
-        //soundfont.compiledRegions[3].properties.pitch_keycenter.should.equal(51);
-        //soundfont.compiledRegions[4].properties.pitch_keycenter.should.equal(52);
+        soundfont.compiledRegions[0].properties.pitch_keycenter.should.equal(60);
+        soundfont.compiledRegions[1].properties.pitch_keycenter.should.equal(50);
+        soundfont.compiledRegions[2].properties.pitch_keycenter.should.equal(50);
+        soundfont.compiledRegions[3].properties.pitch_keycenter.should.equal(51);
+        soundfont.compiledRegions[4].properties.pitch_keycenter.should.equal(52);
     });
 
 

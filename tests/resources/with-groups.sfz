@@ -3,7 +3,7 @@
 <region>sample=SOUND_1.wav
 <group>pitch_keycenter=50
 <region>sample=SOUND_2.wav
-<region>sample=SOUND_2.wav
+<region>sample=SOUND_3.wav
 <group>pitch_keycenter=51
-<region>sample=SOUND_2.wav
-<region>sample=SOUND_2.wav pitch_keycenter=52
+<region>sample=SOUND_4.wav
+<region>sample=SOUND_5.wav pitch_keycenter=52

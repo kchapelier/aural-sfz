@@ -69,29 +69,20 @@ SfzSoundfont.prototype.toString = function () {
     return definition;
 };
 
-/*
 SfzSoundfont.prototype.matchInput = function (channel, key, cents, velocity, bpm, rand) {
-    var matching = null,
-        region,
+    var region,
         i;
 
-    for (i = 0; i < this.regions.length && !matching; i++) {
-        region = this.regions[i];
+    for (i = 0; i < this.compiledRegions.length; i++) {
+        region = this.compiledRegions[i];
 
         if (region.matchInput(channel, key, cents, velocity, bpm, rand)) {
-            matching = region;
+            return region;
         }
-
-        definition += '\r\n' + this.regions[i].toString();
     }
 
-    for (i = 0; i < this.groups.length && !matching; i++) {
-        definition += '\r\n' + this.groups[i].toString();
-    }
-
-    return matching;
+    return null;
 };
-*/
 
 var regexOption = /([a-zA-Z-_]*)=([^=]*)(?![a-zA-Z-_]*=)/g;
 

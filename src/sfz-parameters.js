@@ -37,7 +37,7 @@ module.exports = {
     lobpm: ['float', 0, 0, 500],
     hibpm: ['float', 500, 0, 500],
     seq_length: ['integer', 0, 0, 100],
-    seq_position: ['integer', 0, 0, 100],
+    seq_position: ['integer', 1, 1, 100],
     sw_lokey: ['key', 0, 0, 127],
     sw_hikey: ['key', 127, 0, 127],
     sw_last: ['key', 0, 0, 127],

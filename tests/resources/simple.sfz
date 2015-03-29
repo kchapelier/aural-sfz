@@ -8,5 +8,5 @@ lovel=0 hivel=127
 pitch_random=20
 <region>sample=SOUND_2.wav
 pitch_keycenter=C5
-lokey=77 hikey=81 //sample=machi
+lokey=78 hikey=81 //sample=machi
 lovel=0 hivel=127
