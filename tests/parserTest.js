@@ -1,4 +1,4 @@
-var SfzSoundfont = require('./../'),
+var SfzSoundfont = require('./../').Soundfont,
     should = require('chai').should(),
     fs = require('fs');
 

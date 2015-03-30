@@ -52,6 +52,8 @@ SfzSoundfont.prototype.compileRegions = function () {
     }
 
     this.compiledRegions = compiledRegions;
+
+    return this;
 };
 
 SfzSoundfont.prototype.toString = function () {
@@ -69,14 +71,14 @@ SfzSoundfont.prototype.toString = function () {
     return definition;
 };
 
-SfzSoundfont.prototype.matchInput = function (channel, key, cents, velocity, bpm, rand) {
+SfzSoundfont.prototype.matchInput = function (channel, key, bend, velocity, bpm, rand) {
     var region,
         i;
 
     for (i = 0; i < this.compiledRegions.length; i++) {
         region = this.compiledRegions[i];
 
-        if (region.matchInput(channel, key, cents, velocity, bpm, rand)) {
+        if (region.matchInput(channel, key, bend, velocity, bpm, rand)) {
             return region;
         }
     }

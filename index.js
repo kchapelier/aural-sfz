@@ -1,3 +1,7 @@
 "use strict";
 
-module.exports = require('./src/sfz-soundfont');
+module.exports = {
+    Soundfont: require('./src/sfz-soundfont'),
+    Group: require('./src/sfz-group'),
+    Region: require('./src/sfz-region')
+};

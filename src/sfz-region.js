@@ -14,18 +14,17 @@ SfzRegion.prototype.innerSequence = 0;
  * Check if the region must be triggered by an incoming event
  * @param {Number} channel - Channel number
  * @param {Number} key - Midi value
- * @param {Number} cents - Cents
+ * @param {Number} bend - Pitch bend
  * @param {Number} velocity - Velocity
  * @param {Number} bpm - Tempo in beats per minutes
  * @param {Number} rand - Random value for round robin
  * @return {boolean} Return whether the region must be triggered
  */
-SfzRegion.prototype.matchInput = function (channel, key, cents, velocity, bpm, rand) {
+SfzRegion.prototype.matchInput = function (channel, key, bend, velocity, bpm, rand) {
     var prop = this.properties;
 
     //TODO retrieve those values as arguments
-    var bend = 0,
-        chanaft = 0,
+    var chanaft = 0,
         polyaft = 0;
 
     this.innerSequence++;

@@ -1,0 +1,5 @@
+
+<region>
+sample=SOUND_1.wav
+pitch_keycenter=74
+lorand=0.2 hirand=0.8
